@@ -4,7 +4,7 @@ Video demo del perfil Guest de CIPREC, listo para compartir por link.
 
 ## Contenido
 
-- `demo-guest.mp4` — Video final (1920×1080, ~1:50 min, ~8 MB)
+- `demo-guest.mp4` — Video final (1920×1080, ~2:10 min, ~50 MB)
 - `index.html` — Página HTML con reproductor embebido (para GitHub Pages)
 - `scenes/` — Escenas HTML individuales (cada una es una slide)
 - `audio/` — Audios WAV por escena (TTS, voz es-AR-ElenaNeural)
