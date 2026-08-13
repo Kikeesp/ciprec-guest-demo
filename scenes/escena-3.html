@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo Guest CIPREC · Escena 3</title>
+<style>
+@font-face{font-family:"NotoColorEmoji";src:url("../NotoColorEmoji.ttf") format("truetype");font-display:block}
+.emoji{font-family:"NotoColorEmoji","Segoe UI Emoji","Apple Color Emoji","Segoe UI Symbol",sans-serif}
+</style>
+
+<style>
+  :root{
+    --ciprec-azul:#1e40af;
+    --acento-amarillo:#facc15;
+    --negro:#000;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;font-family:'Segoe UI',Roboto,'NotoColorEmoji','Apple Color Emoji','Segoe UI Emoji',system-ui,sans-serif;background:#0f172a;color:#fff}
+  .stage{position:relative;width:1920px;height:1080px;display:flex;flex-direction:column}
+  .header{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#1e293b;border-bottom:2px solid #334155;height:90px}
+  .brand{display:flex;align-items:center;gap:18px}
+  .logo{width:50px;height:50px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#1e40af;font-weight:800;font-size:22px}
+  .brand h1{font-size:22px;color:#fff;font-weight:700}
+  .badge{font-size:14px;color:#94a3b8;font-weight:600;background:#334155;padding:8px 18px;border-radius:8px}
+  .main{flex:1;display:flex}
+  /* Panel lateral */
+  .side{width:540px;background:#0f172a;border-right:2px solid #334155;padding:30px;overflow:hidden}
+  .cabify-card{background:#000;border:3px solid #fff;border-radius:16px;padding:24px;position:relative}
+  .cabify-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #1e293b}
+  .cabify-icon{font-size:36px}
+  .cabify-title{font-size:22px;font-weight:800;color:#fff;flex:1}
+  .cabify-tag{background:#fff;color:#000;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:800}
+  .trip-row{padding:16px 0;border-top:1px solid #1e293b;display:flex;flex-direction:column;gap:8px;position:relative}
+  .trip-row:first-of-type{border-top:none}
+  .trip-name{font-size:18px;font-weight:700;color:#fff}
+  .trip-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:#94a3b8}
+  .countdown{background:#fff;color:#000;padding:6px 14px;border-radius:8px;font-weight:800;font-size:16px}
+  .trip-status{font-size:13px;color:#22c55e;font-weight:700}
+  /* Mapa */
+  .map-area{flex:1;background:linear-gradient(135deg,#1e3a8a 0%,#312e81 50%,#1e293b 100%);position:relative;overflow:hidden}
+  .street-h{position:absolute;height:6px;background:#475569;left:0;right:0;border-radius:3px}
+  .street-v{position:absolute;width:6px;background:#475569;top:0;bottom:0;border-radius:3px}
+  /* Cabify vehicle */
+  .cabify-vehicle{position:absolute;width:50px;height:50px;background:#000;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 30px rgba(255,255,255,.5);animation:moveCar 4s ease-in-out infinite}
+  @keyframes moveCar{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+  .pickup-marker{position:absolute;width:30px;height:30px;background:#000;border:3px solid #fff;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.6)}
+  .dest-marker{position:absolute;width:30px;height:30px;background:#a855f7;border:3px solid #fff;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px}
+  .route-line{position:absolute;height:4px;background:linear-gradient(90deg,#000,#000 50%,transparent 50%);background-size:14px 4px;transform-origin:0 50%;border-radius:2px}
+  /* Hotspot */
+  .hotspot{position:absolute;width:90px;height:90px;border:4px solid #ef4444;border-radius:50%;animation:pulse 1.6s ease-in-out infinite;pointer-events:none;z-index:50}
+  .hotspot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:3px solid #ef4444;opacity:.4;animation:ring 1.6s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .label-hot{position:absolute;background:#ef4444;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:18px;white-space:nowrap;box-shadow:0 8px 20px rgba(239,68,68,.5);z-index:51}
+  .label-hot::after{content:"";position:absolute;width:14px;height:14px;background:#ef4444;transform:rotate(45deg)}
+  .label-hot.bottom::after{top:-7px;left:30px}
+  .label-hot.top::after{bottom:-7px;left:30px}
+  .label-hot.right::after{left:-7px;top:18px}
+  /* Narrador */
+  .narrator{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.92);color:#fff;padding:24px 36px;border-radius:18px;max-width:1100px;font-size:22px;line-height:1.45;border:2px solid #3b82f6;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:60}
+  .narrator .tag{display:inline-block;background:var(--acento-amarillo);color:#000;padding:4px 12px;border-radius:8px;font-weight:800;font-size:14px;margin-right:12px}
+  .footer{height:50px;background:#020617;color:#64748b;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div><h1>CIPREC · Plataforma de Traslados</h1></div>
+    </div>
+    <div class="badge">Escena 3 · Traslados con remís</div>
+  </div>
+
+  <div class="main">
+    <div class="side">
+      <div class="cabify-card" style="position:relative">
+        <div class="cabify-head">
+          <span class="cabify-icon">🚖</span>
+          <div class="cabify-title">Remises</div>
+          <div class="cabify-tag">SERVICIO</div>
+        </div>
+        <div class="trip-row">
+          <div class="trip-name">Ana Silva</div>
+          <div class="trip-meta">
+            <span>turno 11:15 hs</span>
+            <span class="countdown">⏳ 4 min</span>
+          </div>
+          <div class="trip-status">🚖 Chofer: Pablo · ABC123 · 📞 11 4444-5555</div>
+          <div class="trip-meta">📍 Av. Santa Fe 2500</div>
+          <div class="trip-meta">🏁 Sanatorio Arenales 1611</div>
+          <div class="hotspot" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div>
+        </div>
+      </div>
+      <div class="label-hot bottom" style="left:60px;top:200px">⏳ Minutos que faltan</div>
+    </div>
+
+    <div class="map-area">
+      <div class="street-h" style="top:30%"></div>
+      <div class="street-h" style="top:65%"></div>
+      <div class="street-v" style="left:30%"></div>
+      <div class="street-v" style="left:65%"></div>
+      <!-- Línea de ruta punteada -->
+      <div class="route-line" style="left:32%;top:62%;width:35%;transform:rotate(-30deg);background:linear-gradient(90deg,#000 0%,#000 60%,transparent 60%);background-size:20px 4px;height:4px"></div>
+      <!-- Pickup -->
+      <div class="pickup-marker" style="left:30%;top:65%"></div>
+      <div class="label-hot bottom" style="left:24%;top:68%">📍 Origen</div>
+      <!-- Destino -->
+      <div class="dest-marker" style="left:62%;top:30%">S</div>
+      <div class="label-hot top" style="left:56%;top:18%">🏥 Sanatorio</div>
+      <!-- Vehículo -->
+      <div class="cabify-vehicle" style="left:50%;top:48%">🚖</div>
+      <div class="hotspot" style="left:50%;top:48%"></div>
+      <div class="label-hot right" style="left:54%;top:42%">🚖 Remís en camino</div>
+    </div>
+  </div>
+
+  <div class="narrator">
+    <span class="tag">🎙 NARRADOR</span>
+    A veces no hay un móvil disponible. En esos casos pedimos un <strong>remís</strong>. En el mapa se ve <strong>en negro</strong> y muestra los minutos que faltan para que llegue el auto.
+  </div>
+
+  <div class="footer">CIPREC · DEMO PERFIL GUEST · ESCENA 3 · TRASLADOS CON REMÍS</div>
+</div>
+</body>
+</html>

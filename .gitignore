@@ -1,0 +1,10 @@
+# Generado por build.mjs
+frames/
+tools/
+temp/
+
+# Salida principal (se commitea)
+# demo-guest.mp4
+
+# Audios MP3 descartados, conservamos WAV
+audio/*.mp3

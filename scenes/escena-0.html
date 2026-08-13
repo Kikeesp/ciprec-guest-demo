@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo Guest CIPREC · Escena 0</title>
+<style>
+@font-face{font-family:"NotoColorEmoji";src:url("../NotoColorEmoji.ttf") format("truetype");font-display:block}
+.emoji{font-family:"NotoColorEmoji","Segoe UI Emoji","Apple Color Emoji","Segoe UI Symbol",sans-serif}
+</style>
+
+<style>
+  :root{
+    --ciprec-azul:#1e40af;
+    --ciprec-azul-claro:#3b82f6;
+    --ciprec-azul-oscuro:#0f172a;
+    --ciprec-gris:#475569;
+    --ciprec-fondo:#f1f5f9;
+    --ciprec-blanco:#ffffff;
+    --ciprec-texto:#0f172a;
+    --acento-amarillo:#facc15;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;font-family:'Segoe UI',Roboto,'NotoColorEmoji','Apple Color Emoji','Segoe UI Emoji',system-ui,sans-serif;background:var(--ciprec-fondo);color:var(--ciprec-texto)}
+  .stage{position:relative;width:1920px;height:1080px;display:flex;flex-direction:column}
+  /* Header corporativo */
+  .header{display:flex;align-items:center;justify-content:space-between;padding:32px 64px;background:var(--ciprec-blanco);border-bottom:4px solid var(--ciprec-azul);height:120px}
+  .brand{display:flex;align-items:center;gap:24px}
+  .logo{width:64px;height:64px;background:var(--ciprec-azul);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:28px}
+  .brand h1{font-size:34px;color:var(--ciprec-azul-oscuro);font-weight:700}
+  .brand .sub{font-size:18px;color:var(--ciprec-gris);margin-top:2px}
+  .badge{font-size:16px;color:var(--ciprec-gris);font-weight:600}
+  /* Contenido principal */
+  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px;gap:48px}
+  .phone-card{width:720px;height:880px;background:#fff;border-radius:32px;box-shadow:0 30px 80px rgba(15,23,42,.18);border:2px solid #e2e8f0;display:flex;flex-direction:column;padding:48px;position:relative}
+  .phone-card h2{font-size:34px;color:var(--ciprec-azul-oscuro);margin-bottom:8px}
+  .phone-card .lead{font-size:18px;color:var(--ciprec-gris);margin-bottom:32px}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-size:14px;font-weight:700;color:var(--ciprec-gris);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .field .input{width:100%;padding:18px 22px;border:2px solid #cbd5e1;border-radius:14px;font-size:20px;background:#f8fafc}
+  .field .input.focused{border-color:var(--ciprec-azul);background:#fff;box-shadow:0 0 0 4px rgba(59,130,246,.15)}
+  .btn{padding:20px;border:none;border-radius:14px;font-size:22px;font-weight:700;cursor:pointer;width:100%;margin-top:16px}
+  .btn-primary{background:var(--ciprec-azul);color:#fff}
+  .note{font-size:14px;color:var(--ciprec-gris);text-align:center;margin-top:24px}
+  /* Panel derecho: explicación */
+  .explain{width:760px;color:var(--ciprec-texto)}
+  .explain h2{font-size:54px;color:var(--ciprec-azul-oscuro);margin-bottom:24px;line-height:1.1}
+  .explain p{font-size:26px;line-height:1.5;color:#334155}
+  .pill{display:inline-block;padding:6px 16px;border-radius:999px;background:var(--acento-amarillo);color:#1e293b;font-weight:700;font-size:16px;margin-bottom:18px}
+  /* Hotspot */
+  .hotspot{position:absolute;width:90px;height:90px;border:4px solid #ef4444;border-radius:50%;animation:pulse 1.6s ease-in-out infinite;pointer-events:none}
+  .hotspot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:3px solid #ef4444;opacity:.4;animation:ring 1.6s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .label{position:absolute;background:#ef4444;color:#fff;padding:8px 16px;border-radius:10px;font-weight:700;font-size:18px;white-space:nowrap;box-shadow:0 6px 16px rgba(239,68,68,.4)}
+  .label::after{content:"";position:absolute;width:14px;height:14px;background:#ef4444;transform:rotate(45deg)}
+  .label.top::after{bottom:-7px;left:30px}
+  .label.left::after{right:-7px;top:18px}
+  /* Footer */
+  .footer{height:60px;background:var(--ciprec-azul-oscuro);color:#cbd5e1;display:flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <h1>CIPREC · Plataforma de Traslados</h1>
+        <div class="sub">Demo del perfil Guest</div>
+      </div>
+    </div>
+    <div class="badge">Escena 0 · Acceso</div>
+  </div>
+
+  <div class="main">
+    <div class="phone-card" style="position:relative">
+      <h2>Iniciar sesión</h2>
+      <p class="lead">Ingresá con tu usuario y contraseña.</p>
+
+      <div class="field">
+        <label>Usuario</label>
+        <div class="input focused" id="userField">invitado</div>
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <div class="input">••••••••</div>
+      </div>
+      <div class="btn btn-primary">Ingresar</div>
+      <p class="note">La sesión se cierra sola después de un rato sin uso.</p>
+
+      <!-- Hotspot sobre el campo usuario -->
+      <div class="hotspot" style="left:84px;top:262px"></div>
+      <div class="label top" style="left:200px;top:212px">👤 Tu usuario personal</div>
+    </div>
+
+    <div class="explain">
+      <span class="pill">🎙 Narrador</span>
+      <h2>Cada invitado entra con su usuario y contraseña</h2>
+      <p>El equipo de administración le entrega sus credenciales. La sesión tiene un límite de tiempo para cuidar la información de los pacientes.</p>
+      <p style="margin-top:24px;padding:24px;background:#fff;border-left:6px solid var(--ciprec-azul);border-radius:12px"><strong>Tip:</strong> si nadie usa la pantalla durante 15 minutos, se cierra sola.</p>
+    </div>
+  </div>
+
+  <div class="footer">CIPREC · DEMO PERFIL GUEST</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo Guest CIPREC · Escena 1</title>
+<style>
+@font-face{font-family:"NotoColorEmoji";src:url("../NotoColorEmoji.ttf") format("truetype");font-display:block}
+.emoji{font-family:"NotoColorEmoji","Segoe UI Emoji","Apple Color Emoji","Segoe UI Symbol",sans-serif}
+</style>
+
+<style>
+  :root{
+    --ciprec-azul:#1e40af;
+    --ciprec-azul-claro:#3b82f6;
+    --ciprec-azul-oscuro:#0f172a;
+    --ciprec-gris:#475569;
+    --ciprec-fondo:#f1f5f9;
+    --ciprec-gris-oscuro:#1e293b;
+    --ciprec-blanco:#ffffff;
+    --acento-amarillo:#facc15;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;font-family:'Segoe UI',Roboto,'NotoColorEmoji','Apple Color Emoji','Segoe UI Emoji',system-ui,sans-serif;background:#0f172a;color:#fff}
+  .stage{position:relative;width:1920px;height:1080px;display:flex;flex-direction:column}
+  /* Header superior */
+  .header{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#1e293b;border-bottom:2px solid #334155;height:90px}
+  .brand{display:flex;align-items:center;gap:18px}
+  .logo{width:50px;height:50px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ciprec-azul);font-weight:800;font-size:22px}
+  .brand h1{font-size:22px;color:#fff;font-weight:700}
+  .brand .sub{font-size:13px;color:#94a3b8;margin-top:2px}
+  .badge{font-size:14px;color:#94a3b8;font-weight:600;background:#334155;padding:8px 18px;border-radius:8px}
+  .header-icons{display:flex;gap:14px}
+  .icon-btn{width:46px;height:46px;background:#334155;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+  /* Layout principal */
+  .main{flex:1;display:flex;overflow:hidden}
+  /* Panel lateral */
+  .side{width:560px;background:#0f172a;border-right:2px solid #334155;display:flex;flex-direction:column}
+  .search{padding:18px;border-bottom:2px solid #334155}
+  .search input{width:100%;padding:14px 18px;border-radius:12px;border:2px solid #334155;background:#1e293b;color:#fff;font-size:15px}
+  .driver-list{flex:1;overflow:hidden;padding:18px;display:flex;flex-direction:column;gap:14px}
+  .driver-card{background:#1e293b;border-radius:14px;padding:18px;border:1px solid #334155}
+  .driver-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .dot{width:18px;height:18px;border-radius:50%;animation:pulse 1.5s infinite}
+  .driver-name{font-size:18px;font-weight:700;color:#fff;flex:1}
+  .driver-tag{font-size:11px;color:#94a3b8;background:#334155;padding:4px 10px;border-radius:6px;font-weight:600}
+  .trip{padding:14px;border-top:1px solid #334155;display:flex;flex-direction:column;gap:8px;position:relative}
+  .trip-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .patient{font-size:15px;color:#fff;font-weight:600}
+  .time{font-size:12px;color:#3b82f6;font-weight:600}
+  .badge-status{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:700;background:#334155;color:#cbd5e1;margin-left:auto}
+  .badge-status.en-camino{background:#2563eb;color:#fff}
+  .badge-status.llegando{background:#22c55e;color:#fff}
+  .badge-status.llego{background:#a855f7;color:#fff}
+  .badge-status.esperando{background:#eab308;color:#000}
+  .badge-status.retornando{background:#f97316;color:#fff}
+  .trip-detail{font-size:12px;color:#94a3b8;padding-left:10px;border-left:3px solid #3b82f6;display:flex;flex-direction:column;gap:4px}
+  .trip-detail strong{color:#e2e8f0}
+  /* Mapa simulado */
+  .map-area{flex:1;background:linear-gradient(135deg,#1e3a8a 0%,#312e81 50%,#1e293b 100%);position:relative;overflow:hidden}
+  /* Calles simuladas */
+  .street-h{position:absolute;height:6px;background:#475569;left:0;right:0;border-radius:3px}
+  .street-v{position:absolute;width:6px;background:#475569;top:0;bottom:0;border-radius:3px}
+  /* Marcadores */
+  .marker{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+  .marker-driver{width:36px;height:36px;font-size:18px;border:3px solid #fff}
+  .marker-patient{width:26px;height:26px;font-size:13px;border:2px solid #fff}
+  .marker-cabify{width:36px;height:36px;font-size:18px;border:2px solid #fff;background:#000}
+  /* Hotspot */
+  .hotspot{position:absolute;width:90px;height:90px;border:4px solid #ef4444;border-radius:50%;animation:pulse 1.6s ease-in-out infinite;pointer-events:none;z-index:50}
+  .hotspot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:3px solid #ef4444;opacity:.4;animation:ring 1.6s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .label-hot{position:absolute;background:#ef4444;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:18px;white-space:nowrap;box-shadow:0 8px 20px rgba(239,68,68,.5);z-index:51}
+  .label-hot::after{content:"";position:absolute;width:14px;height:14px;background:#ef4444;transform:rotate(45deg)}
+  .label-hot.bottom::after{top:-7px;left:30px}
+  .label-hot.top::after{bottom:-7px;left:30px}
+  .label-hot.right::after{left:-7px;top:18px}
+  /* Callout narración */
+  .narrator{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.92);color:#fff;padding:24px 36px;border-radius:18px;max-width:1100px;font-size:22px;line-height:1.45;border:2px solid #3b82f6;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:60}
+  .narrator .tag{display:inline-block;background:var(--acento-amarillo);color:#000;padding:4px 12px;border-radius:8px;font-weight:800;font-size:14px;margin-right:12px}
+  /* Footer */
+  .footer{height:50px;background:#020617;color:#64748b;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <h1>CIPREC · Plataforma de Traslados</h1>
+        <div class="sub">Perfil Guest · Mapa en vivo</div>
+      </div>
+    </div>
+    <div class="badge">📅 13/08/2026 · 10:32 hs</div>
+    <div class="header-icons">
+      <div class="icon-btn">🔔</div>
+      <div class="icon-btn">📊</div>
+      <div class="icon-btn">✕</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Panel lateral -->
+    <div class="side" style="position:relative">
+      <div class="search">
+        <input placeholder="🔍 Buscar chofer o paciente..." />
+      </div>
+      <div class="driver-list">
+        <div class="driver-card">
+          <div class="driver-head">
+            <div class="dot" style="background:#22c55e"></div>
+            <div class="driver-name">Carlos Méndez</div>
+            <div class="driver-tag">2/3</div>
+          </div>
+          <div class="trip">
+            <div class="trip-top">
+              <span class="patient">María González</span>
+              <span class="time">turno 11:00 hs</span>
+              <span class="badge-status en-camino">EN CAMINO</span>
+            </div>
+            <div class="trip-detail">
+              <div>📍 <strong>Av. Corrientes 1234</strong></div>
+              <div>🏁 <strong>Sanatorio Arenales 1611</strong></div>
+              <div>📞 <strong>11 5555-1234</strong></div>
+            </div>
+          </div>
+          <div class="trip">
+            <div class="trip-top">
+              <span class="patient">Roberto Díaz</span>
+              <span class="time">turno 12:30 hs</span>
+              <span class="badge-status esperando">ESPERANDO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="driver-card">
+          <div class="driver-head">
+            <div class="dot" style="background:#3b82f6"></div>
+            <div class="driver-name">Lucía Pérez</div>
+            <div class="driver-tag">1/3</div>
+          </div>
+          <div class="trip">
+            <div class="trip-top">
+              <span class="patient">José Ramírez</span>
+              <span class="time">turno 11:30 hs</span>
+              <span class="badge-status llegando">LLEGANDO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="driver-card" style="background:#000;border-color:#000">
+          <div class="driver-head">
+            <div class="dot" style="background:#fff"></div>
+            <div class="driver-name">🚖 Remís Cabify</div>
+            <div class="driver-tag">Servicio</div>
+          </div>
+          <div class="trip">
+            <div class="trip-top">
+              <span class="patient">Ana Silva</span>
+              <span class="time">turno 11:15 hs</span>
+              <span class="badge-status en-camino">EN CAMINO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotspots panel lateral -->
+      <div class="hotspot" style="left:60px;top:430px"></div>
+      <div class="label-hot top" style="left:40px;top:380px">👤 Paciente y dirección</div>
+
+      <div class="hotspot" style="left:490px;top:430px"></div>
+      <div class="label-hot top" style="left:380px;top:380px">🟦 Etapa del traslado</div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="map-area">
+      <!-- Calles simuladas -->
+      <div class="street-h" style="top:30%"></div>
+      <div class="street-h" style="top:60%"></div>
+      <div class="street-h" style="top:85%"></div>
+      <div class="street-v" style="left:25%"></div>
+      <div class="street-v" style="left:50%"></div>
+      <div class="street-v" style="left:75%"></div>
+
+      <!-- Marcadores chofer -->
+      <div class="marker marker-driver" style="background:#22c55e;left:35%;top:35%">🚗</div>
+      <div class="marker marker-driver" style="background:#3b82f6;left:62%;top:55%">🚗</div>
+      <!-- Marcadores pacientes -->
+      <div class="marker marker-patient" style="background:#22c55e;left:30%;top:30%">M</div>
+      <div class="marker marker-patient" style="background:#22c55e;left:38%;top:42%">R</div>
+      <div class="marker marker-patient" style="background:#3b82f6;left:65%;top:60%">J</div>
+      <!-- Cabify -->
+      <div class="marker marker-cabify" style="left:75%;top:30%">🚖</div>
+      <div class="marker marker-patient" style="background:#000;left:78%;top:25%">A</div>
+
+      <!-- Hotspots en mapa -->
+      <div class="hotspot" style="left:34%;top:34%"></div>
+      <div class="label-hot bottom" style="left:38%;top:42%">🚗 Chofer en camino</div>
+
+      <div class="hotspot" style="left:74%;top:29%"></div>
+      <div class="label-hot bottom" style="left:74%;top:38%">🚖 Remís en camino</div>
+    </div>
+  </div>
+
+  <!-- Narración -->
+  <div class="narrator">
+    <span class="tag">🎙 NARRADOR</span>
+    <strong>Cada punto en el mapa es un chofer</strong> y cada marca redonda es un paciente esperando su traslado. Toda la información importante la vemos al costado, en la lista del día.
+  </div>
+
+  <div class="footer">CIPREC · DEMO PERFIL GUEST · ESCENA 1 · EL MAPA DEL DÍA</div>
+</div>
+</body>
+</html>

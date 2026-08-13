@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo Guest CIPREC · Escena 5</title>
+<style>
+@font-face{font-family:"NotoColorEmoji";src:url("../NotoColorEmoji.ttf") format("truetype");font-display:block}
+.emoji{font-family:"NotoColorEmoji","Segoe UI Emoji","Apple Color Emoji","Segoe UI Symbol",sans-serif}
+</style>
+
+<style>
+  :root{
+    --ciprec-azul:#1e40af;
+    --acento-amarillo:#facc15;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;font-family:'Segoe UI',Roboto,'NotoColorEmoji','Apple Color Emoji','Segoe UI Emoji',system-ui,sans-serif;background:#0f172a;color:#fff}
+  .stage{position:relative;width:1920px;height:1080px;display:flex;flex-direction:column}
+  .header{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#1e293b;border-bottom:2px solid #334155;height:90px}
+  .brand{display:flex;align-items:center;gap:18px}
+  .logo{width:50px;height:50px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#1e40af;font-weight:800;font-size:22px}
+  .brand h1{font-size:22px;color:#fff;font-weight:700}
+  .badge{font-size:14px;color:#94a3b8;font-weight:600;background:#334155;padding:8px 18px;border-radius:8px}
+  .main{flex:1;display:flex;padding:50px;gap:40px}
+  .left{flex:1;display:flex;flex-direction:column;gap:30px}
+  .panel{background:#1e293b;border-radius:20px;padding:36px;border:2px solid #334155}
+  .panel h2{font-size:32px;color:#fff;margin-bottom:24px;font-weight:800;display:flex;align-items:center;gap:14px}
+  /* Búsqueda */
+  .search-demo{display:flex;align-items:center;gap:14px;background:#0f172a;padding:18px 22px;border-radius:14px;border:2px solid #334155}
+  .search-demo input{flex:1;background:transparent;border:none;color:#fff;font-size:20px;outline:none}
+  .search-demo .icon{font-size:24px}
+  /* Filtros */
+  .filters{display:flex;gap:12px;flex-wrap:wrap}
+  .filter{background:#0f172a;border:2px solid #334155;padding:14px 22px;border-radius:12px;font-size:16px;font-weight:700;color:#cbd5e1;display:flex;align-items:center;gap:8px}
+  .filter.active{background:#1e40af;border-color:var(--acento-amarillo);color:#fff}
+  .filter .dot{width:14px;height:14px;border-radius:50%}
+  /* Resultado de búsqueda */
+  .results{margin-top:20px;background:#0f172a;border-radius:12px;padding:18px;border-left:5px solid #22c55e}
+  .results h3{color:#22c55e;font-size:18px;margin-bottom:10px}
+  .results li{color:#e2e8f0;font-size:16px;padding:6px 0;list-style:none}
+  /* Cerrar sesión */
+  .logout{position:absolute;top:120px;right:60px;background:#ef4444;color:#fff;padding:14px 22px;border-radius:12px;font-weight:800;font-size:18px;box-shadow:0 10px 30px rgba(239,68,68,.5)}
+  /* Hotspot */
+  .hotspot{position:absolute;width:90px;height:90px;border:4px solid #ef4444;border-radius:50%;animation:pulse 1.6s ease-in-out infinite;pointer-events:none;z-index:50}
+  .hotspot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:3px solid #ef4444;opacity:.4;animation:ring 1.6s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .label-hot{position:absolute;background:#ef4444;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:18px;white-space:nowrap;box-shadow:0 8px 20px rgba(239,68,68,.5);z-index:51}
+  .label-hot::after{content:"";position:absolute;width:14px;height:14px;background:#ef4444;transform:rotate(45deg)}
+  .label-hot.bottom::after{top:-7px;left:30px}
+  .label-hot.top::after{bottom:-7px;left:30px}
+  /* Narrador */
+  .narrator{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.92);color:#fff;padding:24px 36px;border-radius:18px;max-width:1200px;font-size:22px;line-height:1.45;border:2px solid #3b82f6;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:60}
+  .narrator .tag{display:inline-block;background:var(--acento-amarillo);color:#000;padding:4px 12px;border-radius:8px;font-weight:800;font-size:14px;margin-right:12px}
+  .footer{height:50px;background:#020617;color:#64748b;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div><h1>CIPREC · Plataforma de Traslados</h1></div>
+    </div>
+    <div class="badge">Escena 5 · Búsqueda y filtros</div>
+  </div>
+
+  <div class="main">
+    <div class="left">
+      <div class="panel" style="position:relative">
+        <h2>🔍 Buscar paciente</h2>
+        <div class="search-demo">
+          <span class="icon">🔍</span>
+          <input value="María" readonly />
+        </div>
+        <div class="results">
+          <h3>✅ 1 resultado encontrado</h3>
+          <ul>
+            <li>👤 María González · turno 11:00 hs · Carlos Méndez</li>
+          </ul>
+        </div>
+        <div class="hotspot" style="left:200px;top:170px"></div>
+        <div class="label-hot bottom" style="left:60px;top:240px">Buscá por nombre del paciente</div>
+      </div>
+
+      <div class="panel" style="position:relative">
+        <h2>🎯 Filtrar por estado</h2>
+        <div class="filters">
+          <div class="filter"><span class="dot" style="background:#eab308"></span>🕐 Esperando chofer <span style="background:#334155;padding:2px 10px;border-radius:8px;margin-left:6px">8</span></div>
+          <div class="filter active"><span class="dot" style="background:#3b82f6"></span>🚗 En camino <span style="background:#334155;padding:2px 10px;border-radius:8px;margin-left:6px">5</span></div>
+          <div class="filter"><span class="dot" style="background:#22c55e"></span>📍 Por llegar <span style="background:#334155;padding:2px 10px;border-radius:8px;margin-left:6px">2</span></div>
+          <div class="filter"><span class="dot" style="background:#a855f7"></span>🏠 En destino <span style="background:#334155;padding:2px 10px;border-radius:8px;margin-left:6px">3</span></div>
+          <div class="filter"><span class="dot" style="background:#f97316"></span>↩️ Retornando <span style="background:#334155;padding:2px 10px;border-radius:8px;margin-left:6px">1</span></div>
+        </div>
+        <div class="hotspot" style="left:280px;top:240px"></div>
+        <div class="label-hot bottom" style="left:120px;top:310px">Filtrá por etapa</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logout">✕ Cerrar sesión</div>
+  <div class="label-hot top" style="right:60px;top:230px">Salir de la plataforma</div>
+
+  <div class="narrator">
+    <span class="tag">🎙 NARRADOR</span>
+    Para encontrar rápido lo que buscamos, podemos <strong>buscar por nombre del paciente</strong> o <strong>filtrar la lista por estado</strong>. Por ejemplo, ver solo los traslados pendientes, o solo los que ya terminaron. Cuando terminamos, cerramos la sesión con la <strong>X</strong>.
+  </div>
+
+  <div class="footer">CIPREC · DEMO PERFIL GUEST · ESCENA 5 · CIERRE</div>
+</div>
+</body>
+</html>

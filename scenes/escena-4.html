@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Demo Guest CIPREC · Escena 4</title>
+<style>
+@font-face{font-family:"NotoColorEmoji";src:url("../NotoColorEmoji.ttf") format("truetype");font-display:block}
+.emoji{font-family:"NotoColorEmoji","Segoe UI Emoji","Apple Color Emoji","Segoe UI Symbol",sans-serif}
+</style>
+
+<style>
+  :root{
+    --ciprec-azul:#1e40af;
+    --acento-amarillo:#facc15;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;font-family:'Segoe UI',Roboto,'NotoColorEmoji','Apple Color Emoji','Segoe UI Emoji',system-ui,sans-serif;background:#0f172a;color:#fff}
+  .stage{position:relative;width:1920px;height:1080px;display:flex;flex-direction:column}
+  .header{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#1e293b;border-bottom:2px solid #334155;height:90px}
+  .brand{display:flex;align-items:center;gap:18px}
+  .logo{width:50px;height:50px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#1e40af;font-weight:800;font-size:22px}
+  .brand h1{font-size:22px;color:#fff;font-weight:700}
+  .badge{font-size:14px;color:#94a3b8;font-weight:600;background:#334155;padding:8px 18px;border-radius:8px}
+  .main{flex:1;display:flex;padding:50px;gap:40px;align-items:center;justify-content:center}
+  .tool-card{width:520px;background:#1e293b;border-radius:24px;padding:40px;border:3px solid #334155;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .tool-card.active{border-color:var(--acento-amarillo);box-shadow:0 0 0 6px rgba(250,204,21,.25),0 20px 60px rgba(0,0,0,.4);transform:scale(1.04)}
+  .tool-icon{font-size:110px;margin-bottom:20px}
+  .tool-title{font-size:36px;font-weight:800;color:#fff;margin-bottom:14px}
+  .tool-desc{font-size:18px;color:#cbd5e1;line-height:1.5}
+  .tool-example{margin-top:24px;background:#0f172a;border-radius:14px;padding:18px;font-size:15px;color:#94a3b8;text-align:left;border-left:4px solid #ef4444}
+  /* Hotspot */
+  .hotspot{position:absolute;width:90px;height:90px;border:4px solid #ef4444;border-radius:50%;animation:pulse 1.6s ease-in-out infinite;pointer-events:none;z-index:50}
+  .hotspot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:3px solid #ef4444;opacity:.4;animation:ring 1.6s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .label-hot{position:absolute;background:#ef4444;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:18px;white-space:nowrap;box-shadow:0 8px 20px rgba(239,68,68,.5);z-index:51}
+  .label-hot::after{content:"";position:absolute;width:14px;height:14px;background:#ef4444;transform:rotate(45deg)}
+  .label-hot.bottom::after{top:-7px;left:30px}
+  .label-hot.top::after{bottom:-7px;left:30px}
+  /* Narrador */
+  .narrator{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.92);color:#fff;padding:24px 36px;border-radius:18px;max-width:1200px;font-size:22px;line-height:1.45;border:2px solid #3b82f6;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:60}
+  .narrator .tag{display:inline-block;background:var(--acento-amarillo);color:#000;padding:4px 12px;border-radius:8px;font-weight:800;font-size:14px;margin-right:12px}
+  .footer{height:50px;background:#020617;color:#64748b;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div><h1>CIPREC · Plataforma de Traslados</h1></div>
+    </div>
+    <div class="badge">Escena 4 · Herramientas de apoyo</div>
+  </div>
+
+  <div class="main">
+    <div class="tool-card active">
+      <div class="tool-icon">🔔</div>
+      <div class="tool-title">Alertas de tránsito</div>
+      <div class="tool-desc">Cortes, obras y manifestaciones que pueden demorar un traslado</div>
+      <div class="tool-example"><strong>Ejemplo:</strong> Corte en Av. 9 de Julio · +15 min de demora</div>
+      <div class="hotspot" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">📊</div>
+      <div class="tool-title">Resumen semanal</div>
+      <div class="tool-desc">Cuántos traslados hubo, en qué horarios y cómo se resolvieron</div>
+      <div class="tool-example"><strong>Ejemplo:</strong> Esta semana: 142 traslados, 96% a tiempo</div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">💬</div>
+      <div class="tool-title">Chat de ayuda</div>
+      <div class="tool-desc">Preguntas rápidas sobre traslados del día, choferes o pacientes</div>
+      <div class="tool-example"><strong>Ejemplo:</strong> "¿Cuántos traslados están en camino?"</div>
+    </div>
+  </div>
+
+  <div class="label-hot top" style="left:340px;top:340px">🔔 Avisa problemas en la calle</div>
+
+  <div class="narrator">
+    <span class="tag">🎙 NARRADOR</span>
+    La pantalla tiene <strong>tres ayudas</strong>. El <strong>timbre</strong> avisa cuando hay cortes o manifestaciones que pueden demorar un traslado. El <strong>gráfico</strong> abre un resumen con la actividad de la semana. Y abajo hay un <strong>chat</strong> para hacerle preguntas a la plataforma.
+  </div>
+
+  <div class="footer">CIPREC · DEMO PERFIL GUEST · ESCENA 4 · HERRAMIENTAS DE APOYO</div>
+</div>
+</body>
+</html>

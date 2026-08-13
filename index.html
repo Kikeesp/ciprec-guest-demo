@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Perfil Guest · CIPREC</title>
+  <link rel="icon" type="image/png" href="https://www.ciprec.org/wp-content/uploads/2025/10/Logo-Ciprec-1.png">
+  <style>
+    :root{
+      --ciprec-azul:#1e40af;
+      --ciprec-azul-oscuro:#0f172a;
+      --ciprec-gris:#475569;
+      --ciprec-fondo:#f8fafc;
+      --acento-amarillo:#facc15;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;background:var(--ciprec-fondo);color:#0f172a;line-height:1.5}
+    .container{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+    header{display:flex;align-items:center;gap:24px;padding:24px 0;border-bottom:3px solid var(--ciprec-azul);margin-bottom:32px}
+    .logo{width:72px;height:72px;border-radius:14px;background:#fff;border:2px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:var(--ciprec-azul)}
+    header h1{font-size:28px;color:var(--ciprec-azul-oscuro);font-weight:800}
+    header .sub{color:var(--ciprec-gris);font-size:15px;margin-top:2px}
+    .badge{display:inline-block;margin-left:auto;background:var(--acento-amarillo);color:#1e293b;font-weight:700;padding:6px 14px;border-radius:999px;font-size:13px}
+    .intro{background:#fff;border-radius:16px;padding:28px;border:1px solid #e2e8f0;margin-bottom:32px;box-shadow:0 6px 20px rgba(15,23,42,.04)}
+    .intro h2{font-size:22px;color:var(--ciprec-azul-oscuro);margin-bottom:12px}
+    .intro p{color:#334155;font-size:16px;margin-bottom:8px}
+    .video-wrap{background:#000;border-radius:20px;overflow:hidden;box-shadow:0 30px 60px rgba(15,23,42,.25);margin-bottom:32px}
+    .video-wrap video{display:block;width:100%;height:auto;background:#000}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+    .btn-primary{background:var(--ciprec-azul);color:#fff}
+    .btn-primary:hover{background:#1e3a8a;transform:translateY(-1px);box-shadow:0 10px 20px rgba(30,64,175,.3)}
+    .btn-secondary{background:#fff;color:var(--ciprec-azul);border:2px solid var(--ciprec-azul)}
+    .btn-secondary:hover{background:var(--ciprec-azul);color:#fff}
+    .chapters{background:#fff;border-radius:16px;padding:32px;border:1px solid #e2e8f0;margin-bottom:32px}
+    .chapters h2{font-size:22px;color:var(--ciprec-azul-oscuro);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .chapter{display:flex;align-items:flex-start;gap:18px;padding:16px 0;border-bottom:1px solid #e2e8f0}
+    .chapter:last-child{border-bottom:none}
+    .num{width:42px;height:42px;border-radius:50%;background:var(--ciprec-azul);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+    .chapter h3{font-size:17px;color:var(--ciprec-azul-oscuro);margin-bottom:4px}
+    .chapter p{color:#475569;font-size:14px}
+    footer{text-align:center;padding:32px 0;color:#64748b;font-size:14px;border-top:1px solid #e2e8f0;margin-top:48px}
+    footer a{color:var(--ciprec-azul);text-decoration:none;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">C</div>
+      <div>
+        <h1>CIPREC · Plataforma de Traslados</h1>
+        <div class="sub">Demostración del perfil Guest</div>
+      </div>
+      <span class="badge">🎬 Video demo</span>
+    </header>
+
+    <div class="intro">
+      <h2>👋 Bienvenido a la presentación</h2>
+      <p>Este video de menos de <strong>2 minutos</strong> muestra cómo funciona la pantalla del perfil Guest: el mapa del día, las etapas de cada traslado, los traslados con remís y las herramientas de apoyo.</p>
+      <p>Reproducilo, pausalo o saltá a un capítulo específico desde la barra de progreso del reproductor.</p>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="">
+        <source src="demo-guest.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5. Descargá el video desde el botón de abajo.
+      </video>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="demo-guest.mp4" download>
+        ⬇ Descargar video (MP4)
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/Kikeesp/ciprec-guest-demo" target="_blank" rel="noopener">
+        📂 Ver código fuente
+      </a>
+    </div>
+
+    <div class="chapters">
+      <h2>📑 Capítulos del video</h2>
+
+      <div class="chapter">
+        <div class="num">0</div>
+        <div>
+          <h3>Acceso a la plataforma</h3>
+          <p>Ingreso con usuario y contraseña del invitado, y cómo se gestiona el tiempo de la sesión.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="num">1</div>
+        <div>
+          <h3>El mapa del día</h3>
+          <p>Cada punto es un chofer trabajando. Cada marca redonda es un paciente. La lista del día se ve al costado.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="num">2</div>
+        <div>
+          <h3>Las etapas de un traslado</h3>
+          <p>En camino → llegando → ya llegó → volviendo. El sistema avisa solo con carteles cuando hay cambios.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="num">3</div>
+        <div>
+          <h3>Traslados con remís</h3>
+          <p>Cuando no hay móvil disponible se pide un remís: se ve en negro con la cuenta regresiva de llegada.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="num">4</div>
+        <div>
+          <h3>Herramientas de apoyo</h3>
+          <p>Alertas de tránsito, resumen semanal y chat de ayuda para preguntas rápidas.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="num">5</div>
+        <div>
+          <h3>Búsqueda y cierre</h3>
+          <p>Buscar pacientes por nombre, filtrar por etapa del traslado y cerrar la sesión.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>CIPREC · Plataforma de Traslados · <a href="https://www.ciprec.org" target="_blank" rel="noopener">www.ciprec.org</a></p>
+      <p style="margin-top:8px;font-size:12px">Demo generada automáticamente · Versión 1.0 · {date}</p>
+    </footer>
+  </div>
+  <script>
+    // Reemplazar {date} en el footer
+    document.body.innerHTML = document.body.innerHTML.replace('{date}', new Date().toLocaleDateString('es-AR'));
+  </script>
+</body>
+</html>
